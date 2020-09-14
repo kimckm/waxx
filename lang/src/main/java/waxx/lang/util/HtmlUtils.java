@@ -1,11 +1,13 @@
-package waxx.lang.utils;
+package waxx.lang.util;
 
 import java.util.regex.Pattern;
 
 /**
  * 处理HTML文字工具类。
  */
-public class HtmlUtils {
+public final class HtmlUtils {
+
+    private HtmlUtils() {}
 
     /**
      * 过滤HTML标签，并返回指定长度length的字符串。
