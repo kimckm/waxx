@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 /**
- * 词法发析程序。
+ * 词法分析程序。
  */
 public class Lexer {
 
