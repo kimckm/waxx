@@ -9,14 +9,14 @@ import java.util.Hashtable;
 public class Lexer {
 
 	public static int line = 1;
-	char peek = ' ';
-	Hashtable words = new Hashtable();
+	private char peek = ' ';
+	private Hashtable<String, Word> words = new Hashtable<>();
 
-	void readch() throws IOException {
+	private void readch() throws IOException {
 		peek = (char) System.in.read();
 	}
 
-	boolean readch(char c) throws IOException {
+	private boolean readch(char c) throws IOException {
 		readch();
 		if (peek != c) {
 			return false;
@@ -26,6 +26,9 @@ public class Lexer {
 		return true;
 	}
 
+	/**
+	 * 扫描
+	 */
 	public Token scan() throws IOException {
 		for (;;readch()) {
 			if (peek == ' ' || peek == '\t') {
@@ -80,7 +83,7 @@ public class Lexer {
 		}
 
 		if (Character.isLetter(peek)) {
-			StringBuffer b = new StringBuffer();
+			StringBuilder b = new StringBuilder();
 
 			do {
 				b.append(peek);
@@ -88,7 +91,7 @@ public class Lexer {
 			} while (Character.isLetterOrDigit(peek));
 
 			String s = b.toString();
-			Word w = (Word) words.get(s);
+			Word w = words.get(s);
 
 			if (w != null) {
 				return w;
@@ -106,4 +109,7 @@ public class Lexer {
 		return t;
 	}
 
+	public Hashtable<String, Word> getWords() {
+		return words;
+	}
 }

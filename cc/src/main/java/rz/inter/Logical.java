@@ -28,20 +28,21 @@ public class Logical extends Expr {
 	}
 
 	public Expr gen() {
-		int f = newlabel();
-		int a = newlabel();
-
-		Temp temp = new Temp(type);
-
-		this.jumping(0, f);
-
-		emit(temp.toString() + " = true");
-		emit("goto L" + a);
-		emitlabel(f);
-		emit(temp.toString() + " = false");
-		emitlabel(a);
-
-		return temp;
+//		int f = newlabel();
+//		int a = newlabel();
+//
+//		Temp temp = new Temp(type);
+//
+//		this.jumping(0, f);
+//
+//		emit(temp.toString() + " = true");
+//		emit("goto L" + a);
+//		emitlabel(f);
+//		emit(temp.toString() + " = false");
+//		emitlabel(a);
+//
+//		return temp;
+		return null;
 	}
 
 	public String toString() {
