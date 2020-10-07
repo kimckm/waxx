@@ -3,8 +3,12 @@ package rz.inter;
 import rz.lexer.*;
 import rz.symbols.*;
 
+/**
+ * 类 Logical 为类 Or、And 和 Not 提供了一些常见功能。
+ */
 public class Logical extends Expr {
 
+	// 对应一个逻辑运算符的运算分量。
 	public Expr expr1, expr2;
 
 	Logical(Token tok, Expr x1, Expr x2) {

@@ -2,6 +2,9 @@ package rz.symbols;
 
 import rz.lexer.*;
 
+/**
+ * 数值类型
+ */
 public class Type extends Word {
 
     // 用于存储分配
