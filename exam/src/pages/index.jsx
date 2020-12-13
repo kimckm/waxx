@@ -1,12 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Button, Radio } from 'antd';
 import { connect } from 'umi';
-
-const radioStyle = {
-  display: 'block',
-  height: '30px',
-  lineHeight: '30px',
-};
+import Directory from '@/components/directory';
+import Question from '@/components/question';
 
 @connect(({ multipleChoice }) => ({
   v: multipleChoice.data,
@@ -16,14 +12,10 @@ export default class MultipleChoice extends PureComponent {
     const { v } = this.props;
     return (
       <div>
-        <h2>{v.question}</h2>
-        <Radio.Group>
-          {v.options.map(o => (
-            <Radio style={radioStyle} value={o.seq}>{o.value}</Radio>
-          ))}
-        </Radio.Group>
+        <Question v={v} />
         <div>
-          <Button>提交</Button>
+          <Directory />
+          <Button type="primary">交卷</Button>
         </div>
       </div>
     );
