@@ -5,19 +5,22 @@ import Directory from '@/components/directory';
 import Question from '@/components/question';
 
 @connect(({ multipleChoice }) => ({
-  v: multipleChoice.data,
+  list: multipleChoice.list,
+  current: multipleChoice.current,
 }))
 export default class MultipleChoice extends PureComponent {
   render() {
-    const { v } = this.props;
+    const { list, current, dispatch } = this.props;
     return (
-      <div>
-        <Question v={v} />
-        <div>
-          <Directory />
-          <Button type="primary">交卷</Button>
-        </div>
-      </div>
+      <>
+        <Question v={list[current - 1]} />
+        <Directory
+          onChange={(p) => dispatch({ type: 'multipleChoice/goto', payload: { current: p } })}
+          total={list.length}
+          current={current}
+        />
+        <Button type="primary">交卷</Button>
+      </>
     );
   }
 }

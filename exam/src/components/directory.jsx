@@ -1,9 +1,11 @@
 import React from 'react';
 import { Pagination } from 'antd';
 
-export default () => (
+export default ({ onChange, total, current }) => (
   <Pagination
-    defaultCurrent={2}
-    total={50}
+    current={current}
+    pageSize={1}
+    total={total}
+    onChange={onChange}
   />
 );
