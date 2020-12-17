@@ -7,12 +7,15 @@ const radioStyle = {
   lineHeight: '30px',
 };
 
-export default ({ v }) => (
+export default ({ v, onChange }) => (
   <div>
-    <h2>{v.question}</h2>
-    <Radio.Group>
+    <h2>{v.title}</h2>
+    <Radio.Group
+      defaultValue={v.answer}
+      onChange={(e) => onChange(e.target.value)}
+    >
       {v.options.map(o => (
-        <Radio style={radioStyle} value={o.seq}>{o.value}</Radio>
+        <Radio key={`${v.id}_${o.seq}`} style={radioStyle} value={o.seq}>{o.value}</Radio>
       ))}
     </Radio.Group>
   </div>

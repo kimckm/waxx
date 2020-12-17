@@ -11,15 +11,20 @@ import Question from '@/components/question';
 export default class MultipleChoice extends PureComponent {
   render() {
     const { list, current, dispatch } = this.props;
+    const q = list[current - 1];
     return (
       <>
-        <Question v={list[current - 1]} />
+        <Question
+          key={q.id}
+          v={q}
+          onChange={(v) => dispatch({ type: 'multipleChoice/saveChoice', payload: { id: q.id, answer: v } })}
+        />
         <Directory
           onChange={(p) => dispatch({ type: 'multipleChoice/goto', payload: { current: p } })}
           total={list.length}
           current={current}
         />
-        <Button type="primary">交卷</Button>
+        <Button type="primary" onClick={() => console.log(list)}>交卷</Button>
       </>
     );
   }
