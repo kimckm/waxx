@@ -1,13 +1,11 @@
-const styles = {
-  maxWidth: 500,
-  margin: '0 auto',
-  padding: 12,
-};
+import { Layout } from 'antd';
 
-export default function(props) {
-  return (
-    <div style={styles}>
-      {props.children}
-    </div>
-  );
-}
+const { Header, Footer, Content } = Layout;
+
+export default (props) => (
+  <Layout>
+    <Header style={{ background: '#fff' }}>Header</Header>
+    <Content>{props.children}</Content>
+    <Footer>Footer</Footer>
+  </Layout>
+);

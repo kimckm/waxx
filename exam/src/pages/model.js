@@ -2,25 +2,14 @@ export default {
   namespace: 'multipleChoice',
   state: {
     list: [{
-      id: 1,
-      title: "国际标准音A的音高频率是多少？",
-      correct: "C",
-      options: [
-        { seq: "A", value: "430HZ" },
-        { seq: "B", value: "435HZ" },
-        { seq: "C", value: "440HZ" },
-        { seq: "D", value: "445HZ" },
-      ],
-      type: 2, // 单选题
-    }, {
       id: 2,
-      title: "2s国际标准音A的音高频率是多少？",
+      title: "中国有多少个省份？",
       correct: "C",
       options: [
-        { seq: "A", value: "1430HZ" },
-        { seq: "B", value: "1435HZ" },
-        { seq: "C", value: "1440HZ" },
-        { seq: "D", value: "1445HZ" },
+        { seq: "A", value: "21" },
+        { seq: "B", value: "22" },
+        { seq: "C", value: "23" },
+        { seq: "D", value: "24" },
       ],
       type: 2, // 单选题
     }],
