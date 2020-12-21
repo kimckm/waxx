@@ -4,8 +4,7 @@ const { Header, Footer, Content } = Layout;
 
 export default (props) => (
   <Layout>
-    <Header style={{ background: '#fff' }}>Header</Header>
-    <Content>{props.children}</Content>
-    <Footer>Footer</Footer>
+    <Header>Header</Header>
+    <Content style={{ padding: '0 50px' }}>{props.children}</Content>
   </Layout>
 );
