@@ -1,31 +1,68 @@
+/**
+ * 考试页面
+ */
 import React, { PureComponent } from 'react';
-import { Button, Radio } from 'antd';
+import { Button, Radio, Layout, Modal, Badge } from 'antd';
 import { connect } from 'umi';
-import Directory from '@/components/directory';
-import Question from '@/components/question';
+import Directory from '@/components/Directory';
+import Exchange from '@/components/Exchange';
 
-@connect(({ multipleChoice }) => ({
-  list: multipleChoice.list,
-  current: multipleChoice.current,
+const { Header, Footer, Content } = Layout;
+
+@connect(({ exam }) => ({
+  list: exam.list,
+  current: exam.current,
 }))
-export default class MultipleChoice extends PureComponent {
+export default class Exam extends PureComponent {
+  // 显示练习概况
+  showInfo = () => {
+    const { list } = this.props;
+    const questionTotal = list.length;
+    let correctTotal = 0;
+    const content = [];
+    list.forEach((v, i) => {
+      const seq = i + 1;
+      if (!v.answer) {
+        content.push(<div><Badge status="default" />{seq}. 尚未作答!</div>);
+        return;
+      }
+      if (v.answer === v.correct) {
+        correctTotal++;
+        content.push(<div><Badge status="success" />{seq}. 正确!</div>);
+      } else {
+        content.push(<div><Badge status="error" />{seq}. 错误!</div>);
+      }
+    });
+    Modal.info({
+      title: '练习概况',
+      content,
+      maskClosable: true,
+    });
+  }
+
   render() {
     const { list, current, dispatch } = this.props;
     const q = list[current - 1];
     return (
-      <>
-        <Question
-          key={q.id}
-          v={q}
-          onChange={(v) => dispatch({ type: 'multipleChoice/saveChoice', payload: { id: q.id, answer: v } })}
-        />
-        <Directory
-          onChange={(p) => dispatch({ type: 'multipleChoice/goto', payload: { current: p } })}
-          total={list.length}
-          current={current}
-        />
-        <Button type="primary" onClick={() => console.log(list)}>交卷</Button>
-      </>
+      <Layout>
+        <Header>
+          <Button type="primary" onClick={this.showInfo}>练习概况</Button>
+        </Header>
+        <Content style={{ padding: '50px 50px' }}>
+          <Exchange
+            key={q.id}
+            v={q}
+            onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
+          />
+        </Content>
+        <Footer>
+          <Directory
+            onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
+            total={list.length}
+            current={current}
+          />
+        </Footer>
+      </Layout>
     );
   }
 }

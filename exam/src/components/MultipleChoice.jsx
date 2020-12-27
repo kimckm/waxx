@@ -1,3 +1,6 @@
+/**
+ * 单选题
+ */
 import React, { PureComponent } from 'react';
 import { Radio } from 'antd';
 

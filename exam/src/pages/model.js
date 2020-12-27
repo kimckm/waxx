@@ -1,7 +1,14 @@
+import { Modal } from 'antd';
+
 export default {
-  namespace: 'multipleChoice',
+  namespace: 'exam',
   state: {
     list: [{
+      id: 1,
+      title: "中国的首都城市是 {0} 。",
+      correct: "北京",
+      type: 1, // 填空题
+    }, {
       id: 2,
       title: "中国有多少个省份？",
       correct: "C",
@@ -24,7 +31,7 @@ export default {
       };
     },
     // 保存每道题的答案
-    saveChoice(state, { payload }) {
+    save(state, { payload }) {
       const { list } = state;
       const i = list.findIndex(item => item.id == payload.id);
       list[i].answer = payload.answer;
