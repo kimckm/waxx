@@ -26,6 +26,17 @@ export default {
       ],
       type: 2, // 单选题
       // answer: "C",
+    }, {
+      id: 3,
+      title: "以下哪项不属于Spring Cloud Gateway的Glossary ?",
+      correct: "D",
+      options: [
+        { seq: "A", value: "Route" },
+        { seq: "B", value: "Predicate" },
+        { seq: "C", value: "Filter" },
+        { seq: "D", value: "Interceptor" },
+      ],
+      type: 2,
     }],
   },
 }
