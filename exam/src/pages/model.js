@@ -1,28 +1,25 @@
 import { Modal } from 'antd';
+import { list } from '@/services/exam'
 
 export default {
   namespace: 'exam',
   state: {
-    list: [{
-      id: 1,
-      title: "中国的首都城市是 {0} 。",
-      correct: "北京",
-      type: 1, // 填空题
-    }, {
-      id: 2,
-      title: "中国有多少个省份？",
-      correct: "C",
-      options: [
-        { seq: "A", value: "21" },
-        { seq: "B", value: "22" },
-        { seq: "C", value: "23" },
-        { seq: "D", value: "24" },
-      ],
-      type: 2, // 单选题
-    }],
+    list: [],
     current: 1, // 当前题目
   },
+  effects: {
+    *query({ payload }, { call, put }) {
+      const res = yield call(list);
+      yield put({ type: 'saveList', payload: res });
+    },
+  },
   reducers: {
+    saveList(state, { payload }) {
+      return {
+        ...state,
+        list: payload,
+      };
+    },
     // 跳转题目
     goto(state, { payload }) {
       return {
@@ -33,8 +30,16 @@ export default {
     // 保存每道题的答案
     save(state, { payload }) {
       const { list } = state;
-      const i = list.findIndex(item => item.id == payload.id);
-      list[i].answer = payload.answer;
+      const q = list.find(item => item.id == payload.id);
+      if (typeof(payload.answer) == 'object') {
+        const answer = q.answer;
+        q.answer = {
+          ...answer,
+          ...payload.answer,
+        };
+      } else {
+        q.answer = payload.answer;
+      }
       return {
         ...state,
         list: [...list],

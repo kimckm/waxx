@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import { Radio } from 'antd';
 
 import MultipleChoice from './MultipleChoice';
-import FillIn from './FillIn';
+import Completion from './Completion';
 
 const radioStyle = {
   display: 'block',
@@ -16,10 +16,10 @@ const radioStyle = {
 export default (props) => {
   switch (props.v.type) {
     case 1:
-      return (<FillIn {...props} />);
+      return (<Completion {...props} />);
     case 2:
       return (<MultipleChoice {...props} />);
     default:
-      return (<MultipleChoice {...props} />);
+      return (<Completion {...props} />);
   }
 };

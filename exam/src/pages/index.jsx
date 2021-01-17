@@ -14,6 +14,11 @@ const { Header, Footer, Content } = Layout;
   current: exam.current,
 }))
 export default class Exam extends PureComponent {
+  componentDidMount = () => {
+    const { dispatch } = this.props;
+    dispatch({ type: 'exam/query' });
+  }
+
   // 显示练习概况
   showInfo = () => {
     const { list } = this.props;
@@ -43,6 +48,9 @@ export default class Exam extends PureComponent {
   render() {
     const { list, current, dispatch } = this.props;
     const q = list[current - 1];
+    if (!q) {
+      return 'a';
+    }
     return (
       <Layout>
         <Header>
