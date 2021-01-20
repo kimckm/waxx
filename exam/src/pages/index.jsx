@@ -22,22 +22,38 @@ export default class Exam extends PureComponent {
   // 显示练习概况
   showInfo = () => {
     const { list } = this.props;
-    const questionTotal = list.length;
-    let correctTotal = 0;
     const content = [];
+
     list.forEach((v, i) => {
       const seq = i + 1;
       if (!v.answer) {
-        content.push(<div><Badge status="default" />{seq}. 尚未作答!</div>);
+        content.push(<div key={`rs_${v.id}`}><Badge status="default" />{seq}. 尚未作答!</div>);
         return;
       }
-      if (v.answer === v.correct) {
-        correctTotal++;
-        content.push(<div><Badge status="success" />{seq}. 正确!</div>);
-      } else {
-        content.push(<div><Badge status="error" />{seq}. 错误!</div>);
+
+      // 填空题判断
+      if (typeof(v.answer) === 'object') {
+        let flag = true;
+        v.correct.forEach(s => {
+          if (s.expected.indexOf('/') === 0) {
+            const reg = eval(s.expected);
+            if (!reg.test(v.answer[s.code])) {
+              flag = false;
+            }
+          } else {
+            if (s.expected !== v.answer[s.code]) {
+              flag = false;
+            }
+          }
+        });
+        if (flag) {
+          content.push(<div key={`rs_${v.id}`}><Badge status="success" />{seq}. 正确!</div>);
+        } else {
+          content.push(<div key={`rs_${v.id}`}><Badge status="error" />{seq}. 错误!</div>);
+        }
       }
     });
+
     Modal.info({
       title: '练习概况',
       content,
@@ -49,7 +65,7 @@ export default class Exam extends PureComponent {
     const { list, current, dispatch } = this.props;
     const q = list[current - 1];
     if (!q) {
-      return 'a';
+      return 'Oops...';
     }
     return (
       <Layout>

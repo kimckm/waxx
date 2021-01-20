@@ -32,11 +32,10 @@ export default {
       const { list } = state;
       const q = list.find(item => item.id == payload.id);
       if (typeof(payload.answer) == 'object') {
-        const answer = q.answer;
-        q.answer = {
-          ...answer,
-          ...payload.answer,
-        };
+        if (!q.answer) {
+          q.answer = {};
+        }
+        q.answer[payload.answer.code] = payload.answer.answer;
       } else {
         q.answer = payload.answer;
       }
