@@ -72,7 +72,7 @@ export default class Exam extends PureComponent {
         <Header>
           <Button type="primary" onClick={this.showInfo}>练习概况</Button>
         </Header>
-        <Content style={{ padding: '50px 50px' }}>
+        <Content style={{ padding: 15 }}>
           <Exchange
             key={q.id}
             v={q}
