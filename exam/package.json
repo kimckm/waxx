@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "umi dev"
+    "start": "umi dev",
+    "build": "umi build"
   },
   "license": "MIT",
   "dependencies": {
