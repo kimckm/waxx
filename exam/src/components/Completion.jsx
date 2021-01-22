@@ -5,7 +5,6 @@ import React from 'react';
 import { Input } from 'antd';
 
 export default ({ v, onChange }) => {
-  // TODO 正则表达式分割
   const textArray = v.question.split(/{\w+}/);
   const keys = v.question.match(/{\w+}/g);
 

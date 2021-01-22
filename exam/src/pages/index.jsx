@@ -78,6 +78,16 @@ export default class Exam extends PureComponent {
             v={q}
             onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
           />
+          {q.ext ? (
+            <div>
+              <audio
+                src={q.ext.audio[0].src}
+                controls="controls"
+              >
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+          ) : ''}
         </Content>
         <Footer>
           <Directory
