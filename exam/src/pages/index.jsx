@@ -2,13 +2,14 @@
  * 考试页面
  */
 import React, { PureComponent } from 'react';
-import { Button, Radio, Layout, Modal, Badge } from 'antd';
+import { Button, Radio, Layout, Modal, Badge, Row, Col } from 'antd';
 import { connect } from 'umi';
 import Directory from '@/components/Directory';
 import Exchange from '@/components/Exchange';
 import Audio from '@/components/Audio';
+import FootTab from '@/components/FootTab';
 
-const { Header, Footer, Content } = Layout;
+const { Header, Footer, Content, Sider } = Layout;
 
 @connect(({ exam }) => ({
   list: exam.list,
@@ -74,19 +75,26 @@ export default class Exam extends PureComponent {
           <Button type="primary" onClick={this.showInfo}>练习概况</Button>
         </Header>
         <Content style={{ padding: 15 }}>
-          <Exchange
-            key={q.id}
-            v={q}
-            onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
-          />
-          <Audio q={q} />
+          <Row gutter={8}>
+            <Col span={18}>
+              <Exchange
+                key={q.id}
+                v={q}
+                onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
+              />
+              <Audio q={q} />
+            </Col>
+            <Col span={6}>
+              <Directory
+                onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
+                total={list.length}
+                current={current}
+              />
+            </Col>
+          </Row>
         </Content>
         <Footer>
-          <Directory
-            onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
-            total={list.length}
-            current={current}
-          />
+          <FootTab />
         </Footer>
       </Layout>
     );

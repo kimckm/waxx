@@ -2,7 +2,7 @@
  * 填空题
  */
 import React from 'react';
-import { Input } from 'antd';
+import { Input, Card } from 'antd';
 
 export default ({ v, onChange }) => {
   const textArray = v.question.split(/{\w+}/);
@@ -25,8 +25,8 @@ export default ({ v, onChange }) => {
     }
   })
   return (
-    <>
+    <Card title="填空题">
       {content}
-    </>
+    </Card>
   );
 };
