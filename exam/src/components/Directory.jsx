@@ -23,7 +23,9 @@ export default ({ onChange, total, current }) => {
     );
   }
   return (
-    <Card title="答题卡">
+    <Card
+      title="答题卡"
+    >
       <Row gutter={[4, 8]}>{btnContent}</Row>
     </Card>
   );

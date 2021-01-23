@@ -75,8 +75,8 @@ export default class Exam extends PureComponent {
           <Button type="primary" onClick={this.showInfo}>练习概况</Button>
         </Header>
         <Content style={{ padding: 15 }}>
-          <Row gutter={8}>
-            <Col span={{ xs: 24, sm: 24, md: 18 }}>
+          <Row gutter={8} justify="space-between">
+            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 18 }}>
               <Exchange
                 key={q.id}
                 v={q}
@@ -84,7 +84,7 @@ export default class Exam extends PureComponent {
               />
               <Audio q={q} />
             </Col>
-            <Col span={{ xs: 24, sm: 24, md: 6}}>
+            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 6 }}>
               <Directory
                 onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
                 total={list.length}

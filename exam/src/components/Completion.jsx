@@ -25,7 +25,9 @@ export default ({ v, onChange }) => {
     }
   })
   return (
-    <Card title="填空题">
+    <Card
+      title="填空题"
+    >
       {content}
     </Card>
   );
