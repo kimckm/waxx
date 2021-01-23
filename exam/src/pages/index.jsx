@@ -76,7 +76,7 @@ export default class Exam extends PureComponent {
         </Header>
         <Content style={{ padding: 15 }}>
           <Row gutter={8}>
-            <Col span={18}>
+            <Col span={{ xs: 24, sm: 24, md: 18 }}>
               <Exchange
                 key={q.id}
                 v={q}
@@ -84,7 +84,7 @@ export default class Exam extends PureComponent {
               />
               <Audio q={q} />
             </Col>
-            <Col span={6}>
+            <Col span={{ xs: 24, sm: 24, md: 6}}>
               <Directory
                 onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
                 total={list.length}
