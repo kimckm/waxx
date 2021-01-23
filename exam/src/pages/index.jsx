@@ -6,6 +6,7 @@ import { Button, Radio, Layout, Modal, Badge } from 'antd';
 import { connect } from 'umi';
 import Directory from '@/components/Directory';
 import Exchange from '@/components/Exchange';
+import Audio from '@/components/Audio';
 
 const { Header, Footer, Content } = Layout;
 
@@ -78,16 +79,7 @@ export default class Exam extends PureComponent {
             v={q}
             onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
           />
-          {q.ext ? (
-            <div>
-              <audio
-                src={q.ext.audio[0].src}
-                controls="controls"
-              >
-                Your browser does not support the audio element.
-              </audio>
-            </div>
-          ) : ''}
+          <Audio q={q} />
         </Content>
         <Footer>
           <Directory
