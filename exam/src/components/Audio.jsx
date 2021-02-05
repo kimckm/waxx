@@ -7,7 +7,7 @@ import { Card, Typography, Row, Col } from 'antd';
 const { Title, Text } = Typography;
 
 export default ({ q }) => {
-  if (!q || !q.audio) {
+  if (!q || !q.audio || q.audio.length === 0) {
     return '';
   }
 
