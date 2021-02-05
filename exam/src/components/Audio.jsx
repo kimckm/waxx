@@ -7,11 +7,11 @@ import { Card, Typography, Row, Col } from 'antd';
 const { Title, Text } = Typography;
 
 export default ({ q }) => {
-  if (!q.ext || !q.ext.audio) {
+  if (!q || !q.audio) {
     return '';
   }
 
-  const arr = q.ext.audio.map(a => (
+  const arr = q.audio.map(a => (
     <Row key={`${q.id}_${a.name}`} align="middle">
       <Col md={{ span: 2 }}>
         <Text>{a.name}</Text>
