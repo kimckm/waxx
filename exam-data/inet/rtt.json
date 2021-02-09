@@ -1,0 +1,10 @@
+{
+	"question": "TCP含有用于{A}估算客户和服务器之间的{B}时间（round-trip time，RTT）的算法，以便它知道等待一个确认需要多少时间。",
+	"correct": [{
+		"code": "A",
+		"expected": "动态"
+	}, {
+		"code": "B",
+		"expected": "往返"
+	}]
+}

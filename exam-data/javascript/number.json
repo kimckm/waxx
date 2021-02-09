@@ -1,0 +1,12 @@
+{
+  "question": "Number，遵循 IEEE 754 规范，采用{A}存储（double precision），占用 {B} 位，其中1位用来表示符号位，11位用来表示指数，剩下52位表示尾数，就是这个Number.MAX_SAFE_INTEGER，又称为最大安全数，其值为2^53 -1，大于 9007199254740992 的可能会丢失精度。",
+  "correct": [
+    {
+      "code": "A",
+      "expected": "双精度"
+    }, {
+      "code": "B",
+      "expected": "64"
+    }
+  ]
+}

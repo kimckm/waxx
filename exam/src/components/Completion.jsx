@@ -4,7 +4,7 @@
 import React from 'react';
 import { Input, Card } from 'antd';
 
-export default ({ v, onChange }) => {
+export default ({ v, onChange, seq }) => {
   const textArray = v.question.split(/{\w+}/);
   const keys = v.question.match(/{\w+}/g);
 
@@ -25,10 +25,8 @@ export default ({ v, onChange }) => {
     }
   })
   return (
-    <Card
-      title="填空题"
-    >
-      {content}
+    <Card>
+      {seq + 1}、{content}
     </Card>
   );
 };

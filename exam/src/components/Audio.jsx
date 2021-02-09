@@ -4,7 +4,7 @@
 import React from 'react';
 import { Card, Typography, Row, Col } from 'antd';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export default ({ q }) => {
   if (!q || !q.audio || q.audio.length === 0) {
@@ -29,7 +29,6 @@ export default ({ q }) => {
 
   return (
     <Card style={{ marginTop: 8 }}>
-      <Title level={5}>音频资料</Title>
       {arr}
     </Card>
   );

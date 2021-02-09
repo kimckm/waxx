@@ -1,0 +1,9 @@
+{
+  "question": "bind函数把一个{A}赋予一个套接字。",
+  "correct": [
+    {
+      "code": "A",
+      "expected": "本地协议地址"
+    }
+  ]
+}

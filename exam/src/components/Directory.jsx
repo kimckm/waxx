@@ -2,31 +2,59 @@
  * 题卡
  */
 import React from 'react';
-import { Card, Button, Row, Col } from 'antd';
+import { Affix, Card, Button, Row, Col, Badge } from 'antd';
 
-export default ({ onChange, total, current }) => {
+export default ({ onChange, list, current }) => {
   const btnContent = [];
-  for (var i = 0; i < total; i++) {
-    const n = i + 1;
+
+  for (var i = 0; i < list.length; i++) {
+    const v = list[i];
+    const seq = i + 1;
+    //  尚未作答
+    if (!v.answer) {
+      btnContent.push(
+        <Col key={`dir_${seq}`} span={4}>
+          <Badge count={seq} style={{ backgroundColor: '#fff', boxShadow: '0 0 0 1px #d9d9d9 inset', color: '#999' }} />
+        </Col>
+      );
+      continue;
+    }
+
+    // 填空题判断
+    let flag = true;
+    if (typeof(v.answer) === 'object') {
+      v.correct.forEach(s => {
+        if (s.expected.indexOf('/') === 0) {
+          const reg = eval(s.expected);
+          if (!reg.test(v.answer[s.code])) {
+            flag = false;
+          }
+        } else {
+          if (s.expected !== v.answer[s.code]) {
+            flag = false;
+          }
+        }
+      });
+    }
+
+    const style = {};
+    if (flag) {
+      style.backgroundColor = '#52c41a';
+    }
+
     btnContent.push(
-      <Col key={`dir_${n}`} span={4}>
-        <Button
-          size="small"
-          shape="circle"
-          type={current === i + 1 ? 'primary': 'default'}
-          style={{ width: 30, height: 30 }}
-          onClick={() => onChange(n)}
-        >
-          {n}
-        </Button>
+      <Col key={`dir_${seq}`} span={4}>
+        <Badge count={seq} style={style} />
       </Col>
     );
   }
   return (
-    <Card
-      title="答题卡"
-    >
-      <Row gutter={[4, 8]}>{btnContent}</Row>
-    </Card>
+    <Affix>
+      <Card
+        title="答题卡"
+      >
+        <Row gutter={[4, 8]}>{btnContent}</Row>
+      </Card>
+    </Affix>
   );
 };

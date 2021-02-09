@@ -65,10 +65,10 @@ export default class Exam extends PureComponent {
 
   render() {
     const { list, current, dispatch } = this.props;
-    const q = list[current - 1];
-    if (!q) {
-      return 'Oops...';
-    }
+    // const q = list[current - 1];
+    // if (!q) {
+    //   return 'Oops...';
+    // }
     return (
       <Layout>
         <Header>
@@ -77,17 +77,22 @@ export default class Exam extends PureComponent {
         <Content style={{ padding: 15 }}>
           <Row gutter={8} justify="space-between">
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 18 }}>
-              <Exchange
-                key={q.id}
-                v={q}
-                onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
-              />
-              <Audio q={q} />
+              {list.map((q, seq) => (
+                <div style={{ marginBottom: 30 }}>
+                  <Exchange
+                    key={q.id}
+                    seq={seq}
+                    v={q}
+                    onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
+                  />
+                  <Audio q={q} />
+                </div>
+              ))}
             </Col>
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 6 }}>
               <Directory
                 onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
-                total={list.length}
+                list={list}
                 current={current}
               />
             </Col>
