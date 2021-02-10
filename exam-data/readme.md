@@ -5,6 +5,6 @@
 ```
 curl -X POST \
   -H 'Content-Type: application/json' \
-  -d '@inet/c.json' \
+  -d '@inet/a.json' \
     http://8.135.66.238:12276/completions
 ```

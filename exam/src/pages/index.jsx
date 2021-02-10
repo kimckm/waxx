@@ -2,12 +2,11 @@
  * 考试页面
  */
 import React, { PureComponent } from 'react';
-import { Button, Radio, Layout, Modal, Badge, Row, Col } from 'antd';
+import { Button, Radio, Layout, Modal, Badge, Row, Col, Menu } from 'antd';
 import { connect } from 'umi';
 import Directory from '@/components/Directory';
 import Exchange from '@/components/Exchange';
 import Audio from '@/components/Audio';
-import FootTab from '@/components/FootTab';
 
 const { Header, Footer, Content, Sider } = Layout;
 
@@ -21,60 +20,24 @@ export default class Exam extends PureComponent {
     dispatch({ type: 'exam/query' });
   }
 
-  // 显示练习概况
-  showInfo = () => {
-    const { list } = this.props;
-    const content = [];
-
-    list.forEach((v, i) => {
-      const seq = i + 1;
-      if (!v.answer) {
-        content.push(<div key={`rs_${v.id}`}><Badge status="default" />{seq}. 尚未作答!</div>);
-        return;
-      }
-
-      // 填空题判断
-      if (typeof(v.answer) === 'object') {
-        let flag = true;
-        v.correct.forEach(s => {
-          if (s.expected.indexOf('/') === 0) {
-            const reg = eval(s.expected);
-            if (!reg.test(v.answer[s.code])) {
-              flag = false;
-            }
-          } else {
-            if (s.expected !== v.answer[s.code]) {
-              flag = false;
-            }
-          }
-        });
-        if (flag) {
-          content.push(<div key={`rs_${v.id}`}><Badge status="success" />{seq}. 正确!</div>);
-        } else {
-          content.push(<div key={`rs_${v.id}`}><Badge status="error" />{seq}. 错误!</div>);
-        }
-      }
-    });
-
-    Modal.info({
-      title: '练习概况',
-      content,
-      maskClosable: true,
-    });
-  }
-
   render() {
     const { list, current, dispatch } = this.props;
-    // const q = list[current - 1];
-    // if (!q) {
-    //   return 'Oops...';
-    // }
+    if (!list || list.length === 0) {
+      return 'Oops...';
+    }
     return (
       <Layout>
-        <Header>
-          <Button type="primary" onClick={this.showInfo}>练习概况</Button>
+        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['practice']}>
+            <Menu.Item key="practice">练习</Menu.Item>
+            <Menu.Item key="exam">考试</Menu.Item>
+          </Menu>
         </Header>
-        <Content style={{ padding: 15 }}>
+        <Content style={{
+          paddingLeft: 50,
+          paddingRight: 50,
+          paddingTop: 80,
+        }}>
           <Row gutter={8} justify="space-between">
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 18 }}>
               {list.map((q, seq) => (
@@ -98,9 +61,6 @@ export default class Exam extends PureComponent {
             </Col>
           </Row>
         </Content>
-        <Footer>
-          <FootTab />
-        </Footer>
       </Layout>
     );
   }

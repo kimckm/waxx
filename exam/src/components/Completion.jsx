@@ -19,9 +19,22 @@ export default ({ v, onChange, seq }) => {
           key={`${v.id}_${k}`}
           defaultValue={v.answer ? v.answer[k] : ''}
           onChange={(e) => onChange({ code: k, answer: e.target.value})}
-          style={{ width: 80, margin: '0 8px' }}
+          style={{
+            width: 80,
+            margin: '0 8px',
+          }}
         />
       );
+      // content.push(
+      //   <Typography.Text
+      //     key={`${v.id}_${k}`}
+      //     editable={{
+      //       onChange: (value) => onChange({ code: k, answer: value}),
+      //     }}
+      //   >
+      //     {v.answer ? v.answer[k] : ''}
+      //   </Typography.Text>
+      // );
     }
   })
   return (

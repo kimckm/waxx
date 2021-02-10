@@ -49,7 +49,7 @@ export default ({ onChange, list, current }) => {
     );
   }
   return (
-    <Affix>
+    <Affix offsetTop={80}>
       <Card
         title="答题卡"
       >
