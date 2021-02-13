@@ -9,7 +9,7 @@ export default {
   },
   effects: {
     *query({ payload }, { call, put }) {
-      const res = yield call(list);
+      const res = yield call(list, payload);
       yield put({ type: 'saveList', payload: res });
     },
   },

@@ -1,0 +1,9 @@
+{
+  "question": "\"音\"是由发音体{A}而产生的。",
+  "correct": [
+    {
+      "code": "A",
+      "expected": "振动"
+    }
+  ]
+}

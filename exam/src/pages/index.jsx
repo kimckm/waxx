@@ -17,20 +17,30 @@ const { Header, Footer, Content, Sider } = Layout;
 export default class Exam extends PureComponent {
   componentDidMount = () => {
     const { dispatch } = this.props;
-    dispatch({ type: 'exam/query' });
+    dispatch({
+      type: 'exam/query',
+      payload: '520748154880',
+    });
+  }
+
+  query = (id) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'exam/query',
+      payload: id,
+    });
   }
 
   render() {
     const { list, current, dispatch } = this.props;
-    if (!list || list.length === 0) {
-      return 'Oops...';
-    }
     return (
       <Layout>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['practice']}>
-            <Menu.Item key="practice">练习</Menu.Item>
-            <Menu.Item key="exam">考试</Menu.Item>
+            <Menu.Item key="practice" onClick={() => this.query('520748154880')}>UNIX网络编程</Menu.Item>
+            <Menu.Item key="exam">股市</Menu.Item>
+            <Menu.Item key="english">英语</Menu.Item>
+            <Menu.Item key="music" onClick={() => this.query('545844772864')}>乐理</Menu.Item>
           </Menu>
         </Header>
         <Content style={{
