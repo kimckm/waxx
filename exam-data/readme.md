@@ -21,6 +21,6 @@ curl -X POST \
 ```
 curl -X POST \
   -H 'Content-Type: application/json' \
-  -d '{"examId":"520748154880","questionId":"1558331392"}' \
-    http://localhost:12276/exam_questions
+  -d '{"examId":"545844772864","questionId":"640287916032"}' \
+    http://8.135.66.238:12276/exam_questions
 ```
