@@ -8,4 +8,15 @@ export default {
       // pathRewrite: { '^/api': '' }
     },
   },
+  routes: [
+    { 
+      exact: false,
+      path: '/',
+      component: '@/layouts/index',
+      routes: [
+        { exact: true, path: '/', component: '@/pages/index' },
+        { exact: true, path: '/exam-adm', component: '@/pages/exam-adm' },
+      ],
+    },
+  ],
 }
