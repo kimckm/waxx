@@ -1,7 +1,7 @@
 ### 题库数据
 初始化数据工具库。
 
-新建填空题库
+新建填空题
 ```
 curl -X POST \
   -H 'Content-Type: application/json' \
