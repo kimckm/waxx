@@ -15,31 +15,14 @@ const { Header, Footer, Content, Sider } = Layout;
   current: exam.current,
 }))
 export default class Exam extends PureComponent {
-  componentDidMount = () => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'exam/query',
-      payload: '520748154880',
-    });
-  }
-
-  query = (id) => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'exam/query',
-      payload: id,
-    });
-  }
-
   render() {
     const { list, current, dispatch } = this.props;
     return (
       <Row gutter={8} justify="space-between">
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 18 }}>
           {list.map((q, seq) => (
-            <div style={{ marginBottom: 30 }}>
+            <div key={q.id} style={{ marginBottom: 30 }}>
               <Exchange
-                key={q.id}
                 seq={seq}
                 v={q}
                 onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}

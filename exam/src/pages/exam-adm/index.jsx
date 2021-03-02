@@ -3,17 +3,21 @@
  */
 import React, { PureComponent } from 'react';
 import { Table, Card, Drawer, Form, Row, Col, Input, Button } from 'antd';
+import { connect } from 'umi';
 
+const DEFAULT_STATE = {
+  addQuestionVisible: false,
+  exam: {}, // 当前操作的试卷
+  question: '', // 正在编辑的题目
+  correct: [], // 答案
+};
+
+@connect()
 export default class ExamAdm extends PureComponent {
-  state = {
-    addQuestionVisible: true,
-    exam: {}, // 当前操作的试卷
-    question: '', // 正在编辑的题目
-    correct: [], // 答案
-  }
+  state = { ...DEFAULT_STATE }
 
-  showAddQuestionDrawer = (exam) => this.setState({ addQuestionVisible: true, exam, question: '', correct: [] });
-  closeAddQuestionDrawer = () => this.setState({ addQuestionVisible: false, exam: {}, question: '', correct: [] });
+  showAddQuestionDrawer = (exam) => this.setState({ addQuestionVisible: true, exam });
+  closeAddQuestionDrawer = () => this.setState({ ...DEFAULT_STATE });
 
   handleChangeQuestion = (e) => {
     const question = e.target.value;
@@ -33,14 +37,30 @@ export default class ExamAdm extends PureComponent {
     this.setState({ correct: [...correct] });
   }
 
+  handleSubmit = () => {
+    const { dispatch } = this.props;
+    const { exam, question, correct } = this.state;
+    dispatch({
+      type: 'question/saveOne',
+      payload: {
+        examId: exam.id,
+        question,
+        correct,
+      },
+    })
+      .then(this.closeAddQuestionDrawer);
+  }
+
   render() {
     const dataSource = [
       {
         key: 520748154880,
+        id: 520748154880,
         name: 'UNIX网络编程',
       },
       {
         key: 545844772864,
+        id: 545844772864,
         name: '乐理',
       },
     ];
@@ -78,7 +98,7 @@ export default class ExamAdm extends PureComponent {
                 textAlign: 'right',
               }}
             >
-              <Button type="primary" onClick={() => console.log(this.state)}>
+              <Button type="primary" onClick={this.handleSubmit}>
                 提交
               </Button>
             </div>

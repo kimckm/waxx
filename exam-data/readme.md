@@ -5,7 +5,7 @@
 ```
 curl -X POST \
   -H 'Content-Type: application/json' \
-  -d '@/Users/kim/gitspace/waxx/exam-data/music/basic.json' \
+  -d '@/home/kim/gitspace/waxx/exam-data/stock/a.json' \
     http://8.135.66.238:12276/completions
 ```
 
@@ -13,7 +13,7 @@ curl -X POST \
 ```
 curl -X POST \
   -H 'Content-Type: application/json' \
-  -d '@/Users/kim/gitspace/waxx/exam-data/exam/music.json' \
+  -d '@/home/kim/gitspace/waxx/exam-data/exam/stock.json' \
     http://8.135.66.238:12276/exams
 ```
 

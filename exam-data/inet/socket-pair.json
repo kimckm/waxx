@@ -1,0 +1,9 @@
+{
+  "question": "一个TCP连接的套接字对（socket pair）是一个定义该连接的两个端点的四元组：本地IP地址、本地TCP端口号、外地IP地址、外地TCP端口号。套接字对{A}一个网络上的每个TCP连接。 ",
+  "correct": [
+    {
+      "code": "A",
+      "expected": "唯一标识"
+    }
+  ]
+}
