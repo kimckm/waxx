@@ -13,6 +13,7 @@ export default {
       // pathRewrite: { '^/api': '' }
     },
   },
+  history: { type: 'hash' },
   routes: [
     {
       exact: false,

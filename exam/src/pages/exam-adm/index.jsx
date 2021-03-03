@@ -5,19 +5,22 @@ import React, { PureComponent } from 'react';
 import { Table, Card, Drawer, Form, Row, Col, Input, Button } from 'antd';
 import { connect } from 'umi';
 
-const DEFAULT_STATE = {
-  addQuestionVisible: false,
-  exam: {}, // 当前操作的试卷
-  question: '', // 正在编辑的题目
-  correct: [], // 答案
-};
-
 @connect()
 export default class ExamAdm extends PureComponent {
-  state = { ...DEFAULT_STATE }
+  state = {
+    addQuestionVisible: false,
+    exam: {}, // 当前操作的试卷
+    question: '', // 正在编辑的题目
+    correct: [], // 答案
+  }
 
   showAddQuestionDrawer = (exam) => this.setState({ addQuestionVisible: true, exam });
-  closeAddQuestionDrawer = () => this.setState({ ...DEFAULT_STATE });
+  closeAddQuestionDrawer = () => this.setState({
+    addQuestionVisible: false,
+    exam: {},
+    question: '',
+    correct: [],
+  });
 
   handleChangeQuestion = (e) => {
     const question = e.target.value;
@@ -40,15 +43,16 @@ export default class ExamAdm extends PureComponent {
   handleSubmit = () => {
     const { dispatch } = this.props;
     const { exam, question, correct } = this.state;
-    dispatch({
-      type: 'question/saveOne',
-      payload: {
-        examId: exam.id,
-        question,
-        correct,
-      },
-    })
-      .then(this.closeAddQuestionDrawer);
+    console.log(this.state);
+    // dispatch({
+    //   type: 'question/saveOne',
+    //   payload: {
+    //     examId: exam.id,
+    //     question,
+    //     correct,
+    //   },
+    // })
+    //   .then(this.closeAddQuestionDrawer);
   }
 
   render() {
