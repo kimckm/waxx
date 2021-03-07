@@ -4,10 +4,10 @@
 import React from 'react';
 import { Affix, Card, Button, Row, Col, Badge } from 'antd';
 
-export default ({ onChange, list, current }) => {
+export default ({ onChange, list }) => {
   const btnContent = [];
 
-  for (var i = 0; i < list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     const v = list[i];
     const seq = i + 1;
     //  尚未作答

@@ -20,7 +20,8 @@ export default {
       path: '/',
       component: '@/layouts/index',
       routes: [
-        { exact: true, path: '/', component: '@/pages/index' },
+        { exact: true, path: '/', component: '@/pages/exam-adm/index' },
+        { exact: true, path: '/practice', component: '@/pages/practice/index' },
         { exact: true, path: '/exam-adm', component: '@/pages/exam-adm/index' },
       ],
     },

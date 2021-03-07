@@ -5,7 +5,9 @@ import React, { PureComponent } from 'react';
 import { Table, Card, Drawer, Form, Row, Col, Input, Button } from 'antd';
 import { connect } from 'umi';
 
-@connect()
+@connect(({ exam }) => ({
+  examList: exam.list,
+}))
 export default class ExamAdm extends PureComponent {
   state = {
     addQuestionVisible: false,
@@ -56,30 +58,30 @@ export default class ExamAdm extends PureComponent {
   }
 
   render() {
-    const dataSource = [
-      {
-        key: 520748154880,
-        id: 520748154880,
-        name: 'UNIX网络编程',
-      },
-      {
-        key: 545844772864,
-        id: 545844772864,
-        name: '乐理',
-      },
-    ];
+    const { examList } = this.props;
+    const dataSource = examList.map(exam => ({
+      ...exam,
+      key: exam.id,
+    }));
 
     const columns = [
       {
         title: '#',
         key: 'operation',
+        width: 100,
         render: (exam) => <a onClick={() => this.showAddQuestionDrawer(exam)}>添加题目</a>
       },
       {
-        title: '试卷名称',
-        dataIndex: 'name',
-        key: 'name',
+        title: '试卷标题',
+        dataIndex: 'title',
+        key: 'title',
       },
+      {
+        title: '创建时间',
+        dataIndex: 'createAt',
+        key: 'createAt',
+        width: 180,
+      }
     ];
 
     return (
@@ -92,7 +94,7 @@ export default class ExamAdm extends PureComponent {
           size="middle"
         />
         <Drawer
-          title={`${this.state.exam.name} - 添加题目`}
+          title={`${this.state.exam.title} - 添加题目`}
           width={800}
           onClose={this.closeAddQuestionDrawer}
           visible={this.state.addQuestionVisible}

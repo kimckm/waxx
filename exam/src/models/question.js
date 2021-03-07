@@ -1,16 +1,19 @@
 import { Modal } from 'antd';
-import { list } from '@/services/exam'
+import { saveOne, list } from '@/services/question'
 
 export default {
-  namespace: 'exam',
+  namespace: 'question',
   state: {
     list: [],
-    current: 1, // 当前题目
   },
   effects: {
     *query({ payload }, { call, put }) {
       const res = yield call(list, payload);
       yield put({ type: 'saveList', payload: res });
+    },
+    *saveOne({ payload }, { call, put }) {
+      const res = yield call(saveOne, payload);
+      console.log(res);
     },
   },
   reducers: {
@@ -18,13 +21,6 @@ export default {
       return {
         ...state,
         list: payload,
-      };
-    },
-    // 跳转题目
-    goto(state, { payload }) {
-      return {
-        ...state,
-        current: payload.current,
       };
     },
     // 保存每道题的答案

@@ -10,13 +10,19 @@ import Audio from '@/components/Audio';
 
 const { Header, Footer, Content, Sider } = Layout;
 
-@connect(({ exam }) => ({
-  list: exam.list,
-  current: exam.current,
+@connect(({ question }) => ({
+  list: question.list,
 }))
 export default class Exam extends PureComponent {
+  // componentDidMount() {
+  //   const { dispatch } = this.props;
+  //   dispatch({
+  //     type: 'question/query',
+  //     payload: this.props.location.query.examId,
+  //   });
+  // }
   render() {
-    const { list, current, dispatch } = this.props;
+    const { list, dispatch } = this.props;
     return (
       <Row gutter={8} justify="space-between">
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 18 }}>
@@ -25,7 +31,7 @@ export default class Exam extends PureComponent {
               <Exchange
                 seq={seq}
                 v={q}
-                onChange={(v) => dispatch({ type: 'exam/save', payload: { id: q.id, answer: v } })}
+                onChange={(v) => dispatch({ type: 'question/save', payload: { id: q.id, answer: v } })}
               />
               <Audio q={q} />
             </div>
@@ -33,9 +39,7 @@ export default class Exam extends PureComponent {
         </Col>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 6 }}>
           <Directory
-            onChange={(p) => dispatch({ type: 'exam/goto', payload: { current: p } })}
             list={list}
-            current={current}
           />
         </Col>
       </Row>

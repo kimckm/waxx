@@ -3,41 +3,41 @@ import { Layout, Button, Menu } from 'antd';
 import { connect, history } from 'umi';
 const { Header, Footer, Content } = Layout
 
-@connect()
+@connect(({ exam }) => ({
+  examList: exam.list,
+}))
 export default class ExamLayout extends PureComponent {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({ type: 'exam/query' });
+  }
+
   query = (id) => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'exam/query',
+      type: 'question/query',
       payload: id,
     });
   }
 
   render() {
-    const props = this.props;
+    const { children, examList } = this.props;
     return (
       <Layout>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['practice']}>
-            <Menu.Item
-              key="practice"
-              onClick={() => {
-                this.query('520748154880');
-                history.push('/');
-              }}
-            >
-              UNIX网络编程
-            </Menu.Item>
-            <Menu.Item key="exam" onClick={() => history.push('/')}>考试</Menu.Item>
-            <Menu.Item key="music"
-              onClick={() => {
-                this.query('545844772864');
-                history.push('/');
-              }}
-            >
-              乐理
-            </Menu.Item>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['exam-adm']}>
             <Menu.Item key="exam-adm" onClick={() => history.push('/exam-adm')}>试卷管理</Menu.Item>
+            {examList.map(exam => (
+              <Menu.Item
+                key={`exam_${exam.id}`}
+                onClick={() => {
+                  this.query(exam.id);
+                  history.push('/practice');
+                }}
+              >
+                {exam.title}
+              </Menu.Item>
+            ))}
           </Menu>
         </Header>
         <Content style={{
@@ -45,7 +45,7 @@ export default class ExamLayout extends PureComponent {
           paddingRight: 50,
           paddingTop: 80,
         }}>
-          {props.children}
+          {children}
         </Content>
       </Layout>
     );

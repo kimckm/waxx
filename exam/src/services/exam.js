@@ -1,8 +1,5 @@
 export async function list(params) {
-  return fetch(`/graphql?query={exam(id:${params}){id+question+correct{code+expected}audio{name+src}}}`, {
-    method: 'POST',
-  })
+  return fetch(`/api/exams`)
     .then(res => res.json())
-    .then(json => json.data.exam)
     .catch(console.error);
 }
