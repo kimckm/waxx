@@ -4,6 +4,7 @@
 import React, { PureComponent } from 'react';
 import { Table, Card, Drawer, Form, Row, Col, Input, Button } from 'antd';
 import { connect } from 'umi';
+import QuestionForm from '@/components/QuestionForm';
 
 @connect(({ exam }) => ({
   examList: exam.list,
@@ -93,11 +94,17 @@ export default class ExamAdm extends PureComponent {
           pagination={false}
           size="middle"
         />
+        <QuestionForm
+          title={this.state.exam.title}
+          visible={this.state.addQuestionVisible}
+          onCancel={this.closeAddQuestionDrawer}
+          onOk={(form) => console.log(form)}
+        />
         <Drawer
           title={`${this.state.exam.title} - 添加题目`}
           width={800}
           onClose={this.closeAddQuestionDrawer}
-          visible={this.state.addQuestionVisible}
+          // visible={this.state.addQuestionVisible}
           footer={
             <div
               style={{
