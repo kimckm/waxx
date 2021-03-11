@@ -23,6 +23,7 @@ export default {
         { exact: true, path: '/', component: '@/pages/exam-adm/index' },
         { exact: true, path: '/practice', component: '@/pages/practice/index' },
         { exact: true, path: '/exam-adm', component: '@/pages/exam-adm/index' },
+        { exact: true, path: '/question-adm', component: '@/pages/question-adm/index' },
       ],
     },
   ],

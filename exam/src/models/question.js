@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import { saveOne, list } from '@/services/question'
+import { saveOne, list, findByPage } from '@/services/question'
 
 export default {
   namespace: 'question',
@@ -14,6 +14,11 @@ export default {
     *saveOne({ payload }, { call, put }) {
       const res = yield call(saveOne, payload);
       console.log(res);
+    },
+    // 分页查询
+    *findByPage({ payload }, {  call, put }) {
+      const res = yield call(findByPage, payload);
+      yield put({ type: 'saveList', payload: res });
     },
   },
   reducers: {

@@ -20,3 +20,10 @@ export async function list(params) {
     .then(json => json.data.exam)
     .catch(console.error);
 }
+
+// 分页查询
+export async function findByPage(params) {
+  return fetch(`/api/completions`)
+    .then(res => res.json())
+    .catch(console.error);
+}

@@ -3,7 +3,7 @@
  */
 import { Drawer, Form, Input, Button } from 'antd';
 
-export default ({ visible, onOk, onClose, title }) =>  {
+export default ({ visible, onOk, onClose, title, loading }) =>  {
   const [form] = Form.useForm();
 
   const handleOk = () => form.validateFields()
@@ -14,12 +14,17 @@ export default ({ visible, onOk, onClose, title }) =>  {
     const question = e.target.value;
     const keys = question.match(/{\w+}/g);
 
-    const correct = keys ? keys.map(k => ({
-      code: k.replace('{', '').replace('}', ''),
-    })) : [];
-
     let fc = form.getFieldValue('correct');
     fc = fc ? fc : [];
+
+    const correct = keys ? keys.map(k => {
+      const code = k.replace('{', '').replace('}', '');
+      const exist = fc.find(c => c.code == code);
+      return {
+        code,
+        expected: exist ? exist.expected : '',
+      };
+    }) : [];
 
     form.setFieldsValue({
       correct,
@@ -39,7 +44,7 @@ export default ({ visible, onOk, onClose, title }) =>  {
             textAlign: 'right',
           }}
         >
-          <Button type="primary" onClick={handleOk}>
+          <Button type="primary" onClick={handleOk} loading={loading}>
             提交
           </Button>
         </div>

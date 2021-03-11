@@ -6,8 +6,9 @@ import { Table, Card } from 'antd';
 import { connect } from 'umi';
 import QuestionAdd from '@/components/QuestionAdd';
 
-@connect(({ exam }) => ({
+@connect(({ exam, loading }) => ({
   examList: exam.list,
+  loading: loading.models.question,
 }))
 export default class ExamAdm extends PureComponent {
   state = {
@@ -55,7 +56,7 @@ export default class ExamAdm extends PureComponent {
   ]
 
   render() {
-    const { examList } = this.props;
+    const { examList, loading } = this.props;
     const dataSource = examList.map(exam => ({
       ...exam,
       key: exam.id,
@@ -74,7 +75,8 @@ export default class ExamAdm extends PureComponent {
           title={this.state.exam.title}
           visible={this.state.addQuestionVisible}
           onClose={this.closeAddQuestion}
-          onOk={(values) => console.log(values)}
+          onOk={this.handleSubmit}
+          loading={loading}
         />
       </Card>
     );

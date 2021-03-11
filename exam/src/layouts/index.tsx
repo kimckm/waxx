@@ -26,7 +26,8 @@ export default class ExamLayout extends PureComponent {
       <Layout>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['exam-adm']}>
-            <Menu.Item key="exam-adm" onClick={() => history.push('/exam-adm')}>试卷管理</Menu.Item>
+            <Menu.Item key="exam-adm" onClick={() => history.push('/exam-adm')}>试卷</Menu.Item>
+            <Menu.Item key="question-adm" onClick={() => history.push('/question-adm')}>题目</Menu.Item>
             {examList.map(exam => (
               <Menu.Item
                 key={`exam_${exam.id}`}
