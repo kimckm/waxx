@@ -42,8 +42,6 @@ export default class ExamLayout extends PureComponent {
           </Menu>
         </Header>
         <Content style={{
-          paddingLeft: 50,
-          paddingRight: 50,
           paddingTop: 80,
         }}>
           {children}
