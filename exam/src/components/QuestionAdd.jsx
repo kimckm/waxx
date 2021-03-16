@@ -77,7 +77,7 @@ export default ({ visible, onOk, onClose, title, loading }) =>  {
                 name={[field.name, 'expected']}
                 fieldKey={[field.fieldKey, 'expected']}
               >
-                <Input />
+                <Input autocomplete="off" />
               </Form.Item>
             );
           })}

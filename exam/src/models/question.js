@@ -1,5 +1,5 @@
-import { Modal } from 'antd';
-import { saveOne, list, findByPage } from '@/services/question'
+import { Modal, message } from 'antd';
+import { saveOne, list, findByPage } from '@/services/question';
 
 export default {
   namespace: 'question',
@@ -13,7 +13,7 @@ export default {
     },
     *saveOne({ payload }, { call, put }) {
       const res = yield call(saveOne, payload);
-      console.log(res);
+      res ? message.success('新建完成!') : message.error('出错!');
     },
     // 分页查询
     *findByPage({ payload }, {  call, put }) {
