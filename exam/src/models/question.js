@@ -5,6 +5,11 @@ export default {
   namespace: 'question',
   state: {
     list: [],
+    page: {
+      current: 1,
+      size: 20,
+      total: 0,
+    },
   },
   effects: {
     *query({ payload }, { call, put }) {
@@ -25,7 +30,12 @@ export default {
     saveList(state, { payload }) {
       return {
         ...state,
-        list: payload,
+        list: payload.list,
+        page: {
+          current: payload.current,
+          size: payload.size,
+          total: payload.total,
+        },
       };
     },
     // 保存每道题的答案

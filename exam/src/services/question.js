@@ -1,3 +1,5 @@
+import qs from 'querystring';
+
 // 新建一道题目
 export async function saveOne(params) {
   return fetch('/api/completions', {
@@ -23,7 +25,7 @@ export async function list(params) {
 
 // 分页查询
 export async function findByPage(params) {
-  return fetch(`/api/completions`)
+  return fetch(`/api/completions?${qs.stringify(params)}`)
     .then(res => res.json())
     .catch(console.error);
 }

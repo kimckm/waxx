@@ -4,11 +4,18 @@ import { connect } from 'umi';
 
 @connect(({ question }) => ({
   list: question.list,
+  page: question.page,
 }))
 export default class QuestionList extends PureComponent {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({ type: 'question/findByPage' });
+    const { dispatch, page } = this.props;
+    dispatch({
+      type: 'question/findByPage',
+      payload: {
+        current: page.current,
+        size: page.size,
+      },
+    });
   }
 
   columns = [
@@ -32,14 +39,27 @@ export default class QuestionList extends PureComponent {
   ]
 
   render() {
-    const { list } = this.props;
+    const { list, page, dispatch } = this.props;
     return (
       <Card>
         <Table
           dataSource={list}
           columns={this.columns}
           bordered
-          pagination={false}
+          pagination={{
+            position: ['bottomLeft'],
+            pageSize: page.size,
+            total: page.total,
+            current: page.current,
+            showTotal: total => `共 ${total} 条`,
+            onChange: (p, s) => dispatch({
+              type: 'question/findByPage',
+              payload: {
+                current: p,
+                size: s,
+              },
+            }),
+          }}
           size="middle"
         />
       </Card>
