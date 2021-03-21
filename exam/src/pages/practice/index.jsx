@@ -8,8 +8,8 @@ import Directory from '@/components/Directory';
 import Exchange from '@/components/Exchange';
 import Audio from '@/components/Audio';
 
-@connect(({ question }) => ({
-  list: question.list,
+@connect(({ practice }) => ({
+  list: practice.list,
 }))
 export default class Exam extends PureComponent {
   render() {
