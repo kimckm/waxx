@@ -23,7 +23,7 @@ export default class Exam extends PureComponent {
                 <Exchange
                   seq={seq}
                   v={q}
-                  onChange={(v) => dispatch({ type: 'question/save', payload: { id: q.id, answer: v } })}
+                  onChange={(v) => dispatch({ type: 'practice/save', payload: { id: q.id, answer: v } })}
                 />
                 <Audio q={q} />
               </div>

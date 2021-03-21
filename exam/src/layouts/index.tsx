@@ -16,7 +16,9 @@ export default class ExamLayout extends PureComponent {
     const { dispatch } = this.props;
     dispatch({
       type: 'practice/query',
-      payload: id,
+      payload: {
+        examId: id,
+      },
     });
   }
 
