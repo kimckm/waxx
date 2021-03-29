@@ -49,8 +49,8 @@ export default class ExamAdm extends PureComponent {
     },
     {
       title: '创建时间',
-      dataIndex: 'createAt',
-      key: 'createAt',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
       width: 180,
     }
   ]
