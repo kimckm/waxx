@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import { Table, Card } from 'antd';
 import { connect } from 'umi';
 
-@connect(({ question }) => ({
+@connect(({ question, loading }) => ({
   list: question.list,
   page: question.page,
+  loading: loading.models.question,
 }))
 export default class QuestionList extends PureComponent {
   componentDidMount() {
@@ -32,14 +33,14 @@ export default class QuestionList extends PureComponent {
     },
     {
       title: '创建时间',
-      dataIndex: 'createAt',
-      key: 'createAt',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
       width: 180,
     }
   ]
 
   render() {
-    const { list, page, dispatch } = this.props;
+    const { list, page, dispatch, loading } = this.props;
     return (
       <Card>
         <Table
@@ -61,6 +62,7 @@ export default class QuestionList extends PureComponent {
             }),
           }}
           size="middle"
+          loading={loading}
         />
       </Card>
     );

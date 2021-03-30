@@ -2,11 +2,6 @@ export default {
   antd: {},
   dva: {},
   proxy: {
-    '/graphql': {
-      target: 'http://8.135.66.238',
-      changeOrigin: true,
-      // pathRewrite: { '^/api': '' }
-    },
     '/api': {
       target: 'http://8.135.66.238',
       changeOrigin: true,
@@ -24,6 +19,7 @@ export default {
         { exact: true, path: '/practice', component: '@/pages/practice/index' },
         { exact: true, path: '/exam-adm', component: '@/pages/exam-adm/index' },
         { exact: true, path: '/question-adm', component: '@/pages/question-adm/index' },
+        { exact: true, path: '/topic-adm', component: '@/pages/topic-adm/index' },
       ],
     },
   ],
