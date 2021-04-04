@@ -5,19 +5,32 @@ import React, { PureComponent } from 'react';
 import { Table, Card, Button } from 'antd';
 import { connect } from 'umi';
 import TopicAdd from '@/components/TopicAdd';
+import CatalogTree from '@/components/CatalogTree';
 
 @connect(({ topic, loading }) => ({
   list: topic.list,
   page: topic.page,
+  topic: topic.topic,
+  catalogList: topic.catalogList,
   loading: loading.models.topic,
 }))
 export default class TopicAdm extends PureComponent {
   state = {
     addTopicVisible: false,
+    catalogTreeVisible: false,
   }
 
   showAddTopic = () => this.setState({ addTopicVisible: true });
   closeAddTopic = () => this.setState({ addTopicVisible: false });
+
+  showCatalogTree = (topic) => {
+    this.props.dispatch({ type: 'topic/findCatalog', payload: topic })
+      .then(() => this.setState({ catalogTreeVisible: true }));
+  };
+  closeCatalogTree = () => {
+    this.props.dispatch({ type: 'topic/clearCatalog' });
+    this.setState({ catalogTreeVisible: false });
+  };
 
   componentDidMount() {
     const { dispatch, page } = this.props;
@@ -47,7 +60,7 @@ export default class TopicAdm extends PureComponent {
       title: '#',
       key: 'operation',
       width: 70,
-      render: (topic) => <a>目录</a>
+      render: (topic) => <a onClick={() => this.showCatalogTree(topic)}>目录</a>
     },
     {
       title: 'ID',
@@ -69,7 +82,7 @@ export default class TopicAdm extends PureComponent {
   ]
 
   render() {
-    const { list, loading, page } = this.props;
+    const { list, loading, page, catalogList, topic } = this.props;
     const dataSource = list.map(topic => ({
       ...topic,
       key: topic.id,
@@ -104,6 +117,12 @@ export default class TopicAdm extends PureComponent {
           onClose={this.closeAddTopic}
           onOk={this.handleSubmit}
           loading={loading}
+        />
+        <CatalogTree
+          visible={this.state.catalogTreeVisible}
+          onClose={this.closeCatalogTree}
+          topic={topic}
+          catalogList={catalogList}
         />
       </Card>
     );

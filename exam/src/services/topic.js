@@ -18,3 +18,9 @@ export async function findByPage(params) {
     .then(res => res.json())
     .catch(console.error);
 }
+
+export async function findCatalog(params) {
+  return fetch(`/api/catalogs?${qs.stringify(params)}`)
+    .then(res => res.json())
+    .catch(console.error);
+}
