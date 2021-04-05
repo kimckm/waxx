@@ -1,17 +1,20 @@
 import { Tree, Modal } from 'antd';
 
-const getChildren = (id, array) => {
+const getChildren = (id, catalogList) => {
   const children = [];
-  array.forEach(n => {
-    if (n.pid == id) {
-      children.push(n);
+  catalogList.forEach(catalog => {
+    if (catalog.pid == id) {
+      children.push({
+        ...catalog,
+        key: catalog.id,
+      });
     }
   });
 
-  children.forEach(c => {
-    const subChildren = getChildren(c.id, array);
+  children.forEach(n => {
+    const subChildren = getChildren(n.id, catalogList);
     if (subChildren.length > 0) {
-      c.children = subChildren;
+      n.children = subChildren;
     }
   });
 
@@ -28,15 +31,18 @@ const CatalogTree = ({ visible, onClose, topic, catalogList }) => {
   };
 
   const treeData = [];
-  catalogList.forEach(c => {
-    c.key = c.id;
-    if (c.pid) {
+  catalogList.forEach(catalog => {
+    if (catalog.pid) {
       return;
     }
-    c.children = getChildren(c.id, catalogList);
-    treeData.push(c);
-  });
 
+    const n = {
+      ...catalog,
+      key: catalog.id,
+    };
+    n.children = getChildren(n.id, catalogList);
+    treeData.push(n);
+  });
 
   return (
     <Modal

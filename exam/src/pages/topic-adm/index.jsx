@@ -2,10 +2,11 @@
  * 主题管理
  */
 import React, { PureComponent } from 'react';
-import { Table, Card, Button } from 'antd';
-import { connect } from 'umi';
+import { Table, Card, Button, Divider } from 'antd';
+import { connect, history } from 'umi';
 import TopicAdd from '@/components/TopicAdd';
 import CatalogTree from '@/components/CatalogTree';
+import QuestionAdd from '@/components/QuestionAdd';
 
 @connect(({ topic, loading }) => ({
   list: topic.list,
@@ -13,11 +14,13 @@ import CatalogTree from '@/components/CatalogTree';
   topic: topic.topic,
   catalogList: topic.catalogList,
   loading: loading.models.topic,
+  questionLoading: loading.models.question,
 }))
 export default class TopicAdm extends PureComponent {
   state = {
     addTopicVisible: false,
     catalogTreeVisible: false,
+    addQuestionVisible: false,
   }
 
   showAddTopic = () => this.setState({ addTopicVisible: true });
@@ -30,6 +33,15 @@ export default class TopicAdm extends PureComponent {
   closeCatalogTree = () => {
     this.props.dispatch({ type: 'topic/clearCatalog' });
     this.setState({ catalogTreeVisible: false });
+  };
+
+  showAddQuestion = (topic) => {
+    this.props.dispatch({ type: 'topic/findCatalog', payload: topic })
+      .then(() => this.setState({ addQuestionVisible: true }));
+  };
+  closeAddQuestion = () => {
+    this.props.dispatch({ type: 'topic/clearCatalog' });
+    this.setState({ addQuestionVisible: false });
   };
 
   componentDidMount() {
@@ -55,12 +67,35 @@ export default class TopicAdm extends PureComponent {
       .then(() => dispatch({ type: 'topic/findByPage'}));
   }
 
+  handleAddQuestion = (values) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'question/saveOne',
+      payload: values,
+    })
+      .then(this.closeAddQuestion);
+  }
+
   columns = [
     {
       title: '#',
       key: 'operation',
-      width: 70,
-      render: (topic) => <a onClick={() => this.showCatalogTree(topic)}>目录</a>
+      width: 150,
+      render: (topic) => (
+        <>
+          <a onClick={() => this.showCatalogTree(topic)}>目录</a>
+          <Divider type="vertical" />
+          <a onClick={() => this.showAddQuestion(topic)}>题目</a>
+          <Divider type="vertical" />
+          <a onClick={() => {
+            this.props.dispatch({
+              type: 'practice/query',
+              payload: { topicId: topic.id },
+            });
+            history.push('/practice');
+          }}>练习</a>
+        </>
+      )
     },
     {
       title: 'ID',
@@ -82,7 +117,7 @@ export default class TopicAdm extends PureComponent {
   ]
 
   render() {
-    const { list, loading, page, catalogList, topic } = this.props;
+    const { list, loading, page, catalogList, topic, questionLoading } = this.props;
     const dataSource = list.map(topic => ({
       ...topic,
       key: topic.id,
@@ -121,6 +156,14 @@ export default class TopicAdm extends PureComponent {
         <CatalogTree
           visible={this.state.catalogTreeVisible}
           onClose={this.closeCatalogTree}
+          topic={topic}
+          catalogList={catalogList}
+        />
+        <QuestionAdd
+          visible={this.state.addQuestionVisible}
+          onClose={this.closeAddQuestion}
+          onOk={this.handleAddQuestion}
+          loading={questionLoading}
           topic={topic}
           catalogList={catalogList}
         />
