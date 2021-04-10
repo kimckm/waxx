@@ -2,15 +2,10 @@ export default {
   antd: {},
   dva: {},
   proxy: {
-    '/graphql': {
-      target: 'http://8.135.66.238',
-      changeOrigin: true,
-      // pathRewrite: { '^/api': '' }
-    },
     '/api': {
-      target: 'http://8.135.66.238',
+      target: 'http://localhost:9999',
       changeOrigin: true,
-      // pathRewrite: { '^/api': '' }
+      pathRewrite: { '^/api': '' },
     },
   },
   history: { type: 'hash' },
