@@ -1,9 +1,31 @@
 /**
  * 添加题目
  */
-import { Drawer, Form, Input, Button } from 'antd';
+import { Drawer, Form, Input, Button, TreeSelect } from 'antd';
 
-export default ({ visible, onOk, onClose, title, loading }) =>  {
+const getChildren = (id, catalogList) => {
+  const children = [];
+  catalogList.forEach(catalog => {
+    if (catalog.pid == id) {
+      children.push({
+        ...catalog,
+        value: catalog.id,
+      });
+    }
+  });
+
+  children.forEach(n => {
+    const subChildren = getChildren(n.id, catalogList);
+    if (subChildren.length > 0) {
+      n.disabled = true;
+      n.children = subChildren;
+    }
+  });
+
+  return children;
+};
+
+export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
   const [form] = Form.useForm();
 
   const handleOk = () => form.validateFields()
@@ -31,10 +53,27 @@ export default ({ visible, onOk, onClose, title, loading }) =>  {
     });
   }
 
+  const treeData = [];
+  catalogList.forEach(catalog => {
+    if (catalog.pid) {
+      return;
+    }
+
+    const n = {
+      ...catalog,
+      value: catalog.id,
+    };
+    n.children = getChildren(n.id, catalogList);
+    if (n.children.length > 0) {
+      n.disabled = true;
+    }
+    treeData.push(n);
+  });
+
   return (
     <Drawer
       destroyOnClose
-      title={`${title} - 添加题目`}
+      title={`${topic.title} - 添加题目`}
       visible={visible}
       onClose={onClose}
       width={680}
@@ -57,6 +96,18 @@ export default ({ visible, onOk, onClose, title, loading }) =>  {
         form={form}
       >
         <Form.Item
+          name="catalogId"
+          label="主题目录"
+          rules={[{ required: true }]}
+        >
+          <TreeSelect
+            allowClear
+            treeDefaultExpandAll
+            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+            treeData={treeData}
+          />
+        </Form.Item>
+        <Form.Item
           name="question"
           label="题目"
           rules={[{ required: true }]}
@@ -77,7 +128,7 @@ export default ({ visible, onOk, onClose, title, loading }) =>  {
                 name={[field.name, 'expected']}
                 fieldKey={[field.fieldKey, 'expected']}
               >
-                <Input autocomplete="off" />
+                <Input autoComplete="off" />
               </Form.Item>
             );
           })}

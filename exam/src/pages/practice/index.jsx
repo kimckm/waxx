@@ -8,8 +8,8 @@ import Directory from '@/components/Directory';
 import Exchange from '@/components/Exchange';
 import Audio from '@/components/Audio';
 
-@connect(({ question }) => ({
-  list: question.list,
+@connect(({ practice }) => ({
+  list: practice.list,
 }))
 export default class Exam extends PureComponent {
   render() {
@@ -23,7 +23,7 @@ export default class Exam extends PureComponent {
                 <Exchange
                   seq={seq}
                   v={q}
-                  onChange={(v) => dispatch({ type: 'question/save', payload: { id: q.id, answer: v } })}
+                  onChange={(v) => dispatch({ type: 'practice/save', payload: { id: q.id, answer: v } })}
                 />
                 <Audio q={q} />
               </div>

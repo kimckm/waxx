@@ -15,8 +15,10 @@ export default class ExamLayout extends PureComponent {
   query = (id) => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'question/query',
-      payload: id,
+      type: 'practice/query',
+      payload: {
+        examId: id,
+      },
     });
   }
 
@@ -28,6 +30,7 @@ export default class ExamLayout extends PureComponent {
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ location.pathname.substring(1) ]}>
             <Menu.Item key="exam-adm" onClick={() => history.push('/exam-adm')}>试卷</Menu.Item>
             <Menu.Item key="question-adm" onClick={() => history.push('/question-adm')}>题目</Menu.Item>
+            <Menu.Item key="topic-adm" onClick={() => history.push('/topic-adm')}>主题</Menu.Item>
             {examList.map(exam => (
               <Menu.Item
                 key={`exam_${exam.id}`}
