@@ -1,7 +1,8 @@
 /**
  * 添加题目
  */
-import { Drawer, Form, Input, Button, TreeSelect } from 'antd';
+import { Drawer, Form, Input, Button, TreeSelect, Radio, Space, Checkbox, Divider } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const getChildren = (id, catalogList) => {
   const children = [];
@@ -93,7 +94,10 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
         preserve={false}
         layout="vertical"
         hideRequiredMark
+        layout="horizontal"
         form={form}
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 20 }}
       >
         <Form.Item
           name="catalogId"
@@ -106,6 +110,16 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
             dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
             treeData={treeData}
           />
+        </Form.Item>
+        <Form.Item
+          name="questionType"
+          label="题目类型"
+          rules={[{ required: true }]}
+        >
+          <Radio.Group>
+            <Radio value="1">填空</Radio>
+            <Radio value="2">选择</Radio>
+          </Radio.Group>
         </Form.Item>
         <Form.Item
           name="question"
@@ -132,6 +146,37 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
               </Form.Item>
             );
           })}
+        </Form.List>
+        <Divider />
+        <Form.List name="options">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map((field, i) => (
+                <Form.Item
+                  {...field}
+                  label={`选项${i + 1}`}
+                  name={[field.name, 'content']}
+                  fieldKey={[field.fieldKey, 'content']}
+                  rules={[{ required: true }]}
+                >
+                  <Input
+                    addonAfter={(
+                      <>
+                        <Checkbox>正确</Checkbox>
+                        <Divider type="vertical" />
+                        <MinusCircleOutlined onClick={() => remove(field.name)} />
+                      </>
+                    )}
+                  />
+                </Form.Item>
+              ))}
+              <Form.Item wrapperCol={{ offset: 4 }}>
+                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                  增加选项
+                </Button>
+              </Form.Item>
+            </>
+          )}
         </Form.List>
       </Form>
     </Drawer>
