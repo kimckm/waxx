@@ -7,7 +7,10 @@ export async function saveOne(params) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(params),
+    body: JSON.stringify({
+      question: params.question,
+      current: params.current,
+    }),
   })
     .then(res => res.json())
     .catch(console.error);

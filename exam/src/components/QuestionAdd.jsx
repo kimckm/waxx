@@ -26,7 +26,7 @@ const getChildren = (id, catalogList) => {
   return children;
 };
 
-export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
+export default ({ visible, onOk, onClose, loading, topic, catalogList = [] }) =>  {
   const [form] = Form.useForm();
 
   const handleOk = () => form.validateFields()
@@ -74,7 +74,7 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
   return (
     <Drawer
       destroyOnClose
-      title={`${topic.title} - 添加题目`}
+      title={`添加题目 ${topic ? topic.title : ''}`}
       visible={visible}
       onClose={onClose}
       width={680}
@@ -99,18 +99,20 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList }) =>  {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 20 }}
       >
-        <Form.Item
-          name="catalogId"
-          label="主题目录"
-          rules={[{ required: true }]}
-        >
-          <TreeSelect
-            allowClear
-            treeDefaultExpandAll
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={treeData}
-          />
-        </Form.Item>
+        {catalogList.length > 0 ? (
+          <Form.Item
+            name="catalogId"
+            label="主题目录"
+            rules={[{ required: true }]}
+          >
+            <TreeSelect
+              allowClear
+              treeDefaultExpandAll
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData}
+            />
+          </Form.Item>
+        ) : ''}
         <Form.Item
           name="questionType"
           label="题目类型"
