@@ -134,6 +134,7 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList = [] }) =>
             onChange={handleChangeQuestion}
           />
         </Form.Item>
+        <Divider />
         <Form.List name="correct">
           {fields => fields.map(field => {
             const fc = form.getFieldValue('correct');
@@ -149,7 +150,6 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList = [] }) =>
             );
           })}
         </Form.List>
-        <Divider />
         <Form.List name="options">
           {(fields, { add, remove }) => (
             <>

@@ -12,6 +12,11 @@ import Audio from '@/components/Audio';
   list: practice.list,
 }))
 export default class Exam extends PureComponent {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({ type: 'practice/query' });
+  }
+
   render() {
     const { list, dispatch } = this.props;
     return (
