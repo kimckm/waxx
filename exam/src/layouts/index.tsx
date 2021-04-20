@@ -11,7 +11,8 @@ export default class ExamLayout extends PureComponent {
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ location.pathname.substring(1) ]}>
             <Menu.Item key="topic-adm" onClick={() => history.push('/topic-adm')}>主题</Menu.Item>
-            <Menu.Item key="question-adm" onClick={() => history.push('/question-adm')}>题目</Menu.Item>
+            <Menu.Item key="question-adm" onClick={() => history.push('/question-adm')}>填空题</Menu.Item>
+            <Menu.Item key="choice-adm" onClick={() => history.push('/choice-adm')}>选择题</Menu.Item>
             <Menu.Item key="practice" onClick={() => history.push('/practice')}>练习</Menu.Item>
           </Menu>
         </Header>
