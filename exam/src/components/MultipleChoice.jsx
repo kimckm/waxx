@@ -2,24 +2,30 @@
  * 单选题
  */
 import React, { PureComponent } from 'react';
-import { Radio } from 'antd';
+import { Radio, Card } from 'antd';
 
 const radioStyle = {
-  display: 'block',
   height: '30px',
   lineHeight: '30px',
 };
 
-export default ({ v, onChange }) => (
-  <div>
-    <h2>{v.title}</h2>
+export default ({ v, seq, onChange }) => (
+  <Card>
+    <div>{`${seq + 1}、${v.question}`}</div>
     <Radio.Group
+      style={{ padding: 15 }}
       defaultValue={v.answer}
       onChange={(e) => onChange(e.target.value)}
     >
-      {v.options.map(o => (
-        <Radio key={`${v.id}_${o.seq}`} style={radioStyle} value={o.seq}>{o.value}</Radio>
+      {v.choiceOptions.map(o => (
+        <Radio
+          key={`${v.id}_${o.seq}`}
+          style={radioStyle}
+          value={o.seq}
+        >
+          {`${String.fromCharCode(65 + o.seq)}. ${o.option}`}
+        </Radio>
       ))}
     </Radio.Group>
-  </div>
+  </Card>
 );
