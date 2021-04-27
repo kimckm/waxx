@@ -99,30 +99,22 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList = [] }) =>
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 20 }}
       >
-        {catalogList.length > 0 ? (
-          <Form.Item
-            name="catalogId"
-            label="主题目录"
-            rules={[{ required: true }]}
-          >
-            <TreeSelect
-              allowClear
-              treeDefaultExpandAll
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeData={treeData}
-            />
-          </Form.Item>
-        ) : ''}
-        <Form.Item
-          name="questionType"
-          label="题目类型"
-          rules={[{ required: true }]}
-        >
-          <Radio.Group>
-            <Radio value="1">填空</Radio>
-            <Radio value="2">选择</Radio>
-          </Radio.Group>
-        </Form.Item>
+        {catalogList.length > 0
+          ? (
+              <Form.Item
+                name="catalogId"
+                label="主题目录"
+                rules={[{ required: true }]}
+              >
+                <TreeSelect
+                  allowClear
+                  treeDefaultExpandAll
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={treeData}
+                />
+              </Form.Item>
+            )
+          : ''}
         <Form.Item
           name="question"
           label="题目"
@@ -149,36 +141,6 @@ export default ({ visible, onOk, onClose, loading, topic, catalogList = [] }) =>
               </Form.Item>
             );
           })}
-        </Form.List>
-        <Form.List name="options">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map((field, i) => (
-                <Form.Item
-                  {...field}
-                  label={`选项${i + 1}`}
-                  name={[field.name, 'content']}
-                  fieldKey={[field.fieldKey, 'content']}
-                  rules={[{ required: true }]}
-                >
-                  <Input
-                    addonAfter={(
-                      <>
-                        <Checkbox>正确</Checkbox>
-                        <Divider type="vertical" />
-                        <MinusCircleOutlined onClick={() => remove(field.name)} />
-                      </>
-                    )}
-                  />
-                </Form.Item>
-              ))}
-              <Form.Item wrapperCol={{ offset: 4 }}>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  增加选项
-                </Button>
-              </Form.Item>
-            </>
-          )}
         </Form.List>
       </Form>
     </Drawer>
