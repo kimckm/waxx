@@ -1,7 +1,7 @@
 /**
  * 单选题
  */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Radio, Card } from 'antd';
 
 const radioStyle = {
@@ -11,7 +11,10 @@ const radioStyle = {
 
 export default ({ v, seq, onChange }) => (
   <Card>
-    <div>{`${seq + 1}、${v.question}`}</div>
+    <div>
+      {seq ? `${seq + 1}、` : ''}
+      {v.question}
+    </div>
     <Radio.Group
       style={{ padding: 15 }}
       defaultValue={v.answer}
