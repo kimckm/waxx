@@ -4,7 +4,7 @@
 import React, { PureComponent } from 'react';
 import { Radio } from 'antd';
 
-import MultipleChoice from './MultipleChoice';
+import Choice from './Choice';
 import Completion from './Completion';
 
 export default (props) => {
@@ -12,7 +12,7 @@ export default (props) => {
     case 'completion':
       return (<Completion {...props} />);
     case 'choice':
-      return (<MultipleChoice {...props} />);
+      return (<Choice {...props} />);
     default:
       return (<Completion {...props} />);
   }
