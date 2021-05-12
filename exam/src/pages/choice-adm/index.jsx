@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Table, Card, Button } from 'antd';
+import { Table, Card, Button, Divider } from 'antd';
 import { connect } from 'umi';
 import ChoiceAdd from '@/components/ChoiceAdd';
+import ChoiceUpdate from '@/components/ChoiceUpdate';
 
 @connect(({ choice, loading }) => ({
   list: choice.list,
@@ -11,10 +12,14 @@ import ChoiceAdd from '@/components/ChoiceAdd';
 export default class ChoiceList extends PureComponent {
   state = {
     addQuestionVisible: false,
+    updateChoiceVisible: false,
+    choice: {},
   }
 
   showAddQuestion = () => this.setState({ addQuestionVisible: true });
   closeAddQuestion = () => this.setState({ addQuestionVisible: false });
+  showUpdateChoice = (choice) => this.setState({ updateChoiceVisible: true, choice });
+  closeUpdateChoice = () => this.setState({ updateChoiceVisible: false, choice: {} });
 
   handleAddQuestion = (values) => {
     const { dispatch } = this.props;
@@ -38,10 +43,16 @@ export default class ChoiceList extends PureComponent {
 
   columns = [
     {
-      title: 'ID',
-      key: 'id',
+      title: '操作',
+      key: 'ops',
       width: 100,
-      dataIndex: 'id',
+      render: (choice) => (
+        <>
+          <a onClick={() => this.showUpdateChoice(choice)}>编辑</a>
+          <Divider type="vertical" />
+          <a onClick={() => this.preview(choice)}>预览</a>
+        </>
+      ),
     },
     {
       title: '题目',
@@ -86,6 +97,13 @@ export default class ChoiceList extends PureComponent {
           visible={this.state.addQuestionVisible}
           onClose={this.closeAddQuestion}
           onOk={this.handleAddQuestion}
+          loading={loading}
+        />
+        <ChoiceUpdate
+          choice={this.state.choice}
+          visible={this.state.updateChoiceVisible}
+          onClose={this.closeUpdateChoice}
+          onOk={() => ''}
           loading={loading}
         />
       </Card>
