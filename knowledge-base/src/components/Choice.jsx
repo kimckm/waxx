@@ -15,6 +15,7 @@ export default ({ v, seq, onChange }) => {
     value: o.seq,
   }));
 
+  // TODO 一个选项占一行。
   return (
     <Card>
       <div>
@@ -23,7 +24,7 @@ export default ({ v, seq, onChange }) => {
       </div>
       <Checkbox.Group
         options={options}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => console.log(e)}
       />
     </Card>
   );

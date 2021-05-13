@@ -19,6 +19,7 @@ export async function findByPage(params) {
     .catch(console.error);
 }
 
+// 查询目录
 export async function findCatalog(params) {
   return fetch(`/api/catalogs?${qs.stringify(params)}`)
     .then(res => res.json())

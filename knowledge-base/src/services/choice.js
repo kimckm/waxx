@@ -1,6 +1,6 @@
 import qs from 'querystring';
 
-// 新建一道题目
+// 新建一道选择题
 export async function saveOne(params) {
   return fetch('/api/choices', {
     method: 'POST',

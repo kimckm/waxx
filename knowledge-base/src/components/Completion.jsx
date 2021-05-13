@@ -1,7 +1,6 @@
 /*
  * 填空题
  */
-import React from 'react';
 import { Input, Card } from 'antd';
 
 export default ({ v, onChange, seq }) => {
@@ -13,6 +12,7 @@ export default ({ v, onChange, seq }) => {
     content.push(t);
     let k = keys[i];
     if (k) {
+      // 去除前后的花括号
       k = k.replace('{', '').replace('}', '');
       content.push(
         <Input
@@ -25,21 +25,13 @@ export default ({ v, onChange, seq }) => {
           }}
         />
       );
-      // content.push(
-      //   <Typography.Text
-      //     key={`${v.id}_${k}`}
-      //     editable={{
-      //       onChange: (value) => onChange({ code: k, answer: value}),
-      //     }}
-      //   >
-      //     {v.answer ? v.answer[k] : ''}
-      //   </Typography.Text>
-      // );
     }
-  })
+  });
+
   return (
     <Card>
-      {seq + 1}、{content}
+      {seq ? `${seq + 1}、` : ''}
+      {content}
     </Card>
   );
 };

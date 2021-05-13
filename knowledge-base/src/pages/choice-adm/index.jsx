@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import { Table, Card, Button, Divider } from 'antd';
 import { connect } from 'umi';
 import ChoiceAdd from '@/components/ChoiceAdd';

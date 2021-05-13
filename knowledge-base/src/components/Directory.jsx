@@ -1,7 +1,6 @@
 /*
  * 题卡
  */
-import React from 'react';
 import { Affix, Card, Button, Row, Col, Badge } from 'antd';
 
 export default ({ onChange, list }) => {

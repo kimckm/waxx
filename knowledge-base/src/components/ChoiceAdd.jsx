@@ -1,5 +1,5 @@
 /**
- * 添加题目
+ * 添加选择题
  */
 import { Drawer, Form, Input, Button, TreeSelect, Radio, Space, Checkbox, Divider } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
