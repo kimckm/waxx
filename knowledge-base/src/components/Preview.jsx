@@ -6,9 +6,11 @@ import { Modal } from 'antd';
 
 export default (props) => (
   <Modal
-    title="预览"    
     visible={props.visible}
     onCancel={props.onClose}
+    width={800}
+    destroyOnClose
+    footer={null}
   >
     <Exchange v={props.v} />
   </Modal>
