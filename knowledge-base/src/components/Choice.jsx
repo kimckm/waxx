@@ -10,10 +10,10 @@ const radioStyle = {
 };
 
 export default ({ v, seq, onChange }) => {
-  const options = v.choiceOptions.map(o => ({
+  const options = v.choiceOptions ? v.choiceOptions.map(o => ({
     label: `${String.fromCharCode(65 + o.seq)}. ${o.option}`,
     value: o.seq,
-  }));
+  })) : [];
 
   // TODO 一个选项占一行。
   return (

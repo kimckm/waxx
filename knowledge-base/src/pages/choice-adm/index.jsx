@@ -3,6 +3,7 @@ import { Table, Card, Button, Divider } from 'antd';
 import { connect } from 'umi';
 import ChoiceAdd from '@/components/ChoiceAdd';
 import ChoiceUpdate from '@/components/ChoiceUpdate';
+import Preview from '@/components/Preview';
 
 @connect(({ choice, loading }) => ({
   list: choice.list,
@@ -14,6 +15,7 @@ export default class ChoiceList extends PureComponent {
     addQuestionVisible: false,
     updateChoiceVisible: false,
     choice: {},
+    previewVisible: false,
   }
 
   showAddQuestion = () => this.setState({ addQuestionVisible: true });
@@ -50,7 +52,7 @@ export default class ChoiceList extends PureComponent {
         <>
           <a onClick={() => this.showUpdateChoice(choice)}>编辑</a>
           <Divider type="vertical" />
-          <a onClick={() => this.preview(choice)}>预览</a>
+          <a onClick={() => this.openPreview(choice)}>预览</a>
         </>
       ),
     },
@@ -65,7 +67,22 @@ export default class ChoiceList extends PureComponent {
       key: 'createdAt',
       width: 180,
     }
-  ]
+  ];
+
+  // 预览题目
+  openPreview = (c) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'choice/findById',
+      payload: c.id,
+    }).then(choice => {
+      this.setState({
+        previewVisible: true,
+        choice,
+      });
+    });
+  };
+  closePreview = () => this.setState({ previewVisible: false, choice:  {} });
 
   render() {
     const { list, page, dispatch, loading } = this.props;
@@ -73,7 +90,7 @@ export default class ChoiceList extends PureComponent {
       <Card>
         <Button onClick={this.showAddQuestion}>新建</Button>
         <Table
-          dataSource={list}
+          dataSource={list.map(v => ({ ...v, key: v.id }))}
           columns={this.columns}
           bordered
           pagination={{
@@ -105,6 +122,11 @@ export default class ChoiceList extends PureComponent {
           onClose={this.closeUpdateChoice}
           onOk={() => ''}
           loading={loading}
+        />
+        <Preview
+          visible={this.state.previewVisible}
+          onClose={this.closePreview}
+          v={{ ...this.state.choice, type: 'choice' }}
         />
       </Card>
     );

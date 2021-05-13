@@ -1,5 +1,5 @@
 import { Modal, message } from 'antd';
-import { saveOne, findByPage } from '@/services/choice';
+import { saveOne, findByPage, findById } from '@/services/choice';
 
 export default {
   namespace: 'choice',
@@ -21,6 +21,9 @@ export default {
       const res = yield call(findByPage, payload);
       yield put({ type: 'saveList', payload: res });
     },
+    *findById({ payload }, { call, put }) {
+      return yield call(findById, payload);
+    }
   },
   reducers: {
     saveList(state, { payload }) {

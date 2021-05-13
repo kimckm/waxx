@@ -22,3 +22,9 @@ export async function findByPage(params) {
     .then(res => res.json())
     .catch(console.error);
 }
+
+export async function findById(id) {
+  return fetch(`/api/choices/${id}`)
+    .then(res => res.json())
+    .catch(console.error);
+}
