@@ -18,7 +18,7 @@ union header {
                 unsigned size;     /* 本块的大小 */
         } s;
         Align x;                   /* 强制块的对齐 */
-}
+};
 
 typedef union header Header;
 ```
