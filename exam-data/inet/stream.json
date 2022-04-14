@@ -1,7 +1,0 @@
-{
-	"question": "TCP套接字是一种{A}套接字(stream socket)。TCP关心确认、超时和重传之类的细节。",
-	"correct": [{
-		"code": "A",
-		"expected": "流"
-	}]
-}

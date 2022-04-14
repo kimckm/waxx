@@ -1,9 +1,0 @@
-{
-  "question": "{A}信号就是由内核在任何一个进程终止时发给它的父进程的一个信号。",
-  "correct": [
-    {
-      "code": "A",
-      "expected": "SIGCHLD"
-    }
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "question": "{A}（signal）就是告知某个进程发生了某个事件的通知，有时也称为软件中断（softwareinterrupt）。",
-  "correct": [
-    {
-      "code": "A",
-      "expected": "信号"
-    }
-  ]
-}

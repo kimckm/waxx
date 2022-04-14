@@ -1,7 +1,0 @@
-{
-	"question": "TCP有一个{A}(maximum segment size, 最大分节大小), 用于向对端TCP通告对端在每个分节中能发送的最大TCP数据量。",
-	"correct": [{
-		"code": "A",
-		"expected": "MSS"
-	}]
-}

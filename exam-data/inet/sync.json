@@ -1,7 +1,0 @@
-{
-	"question": "{A}是TCP传递给IP的数据单元。",
-	"correct": [{
-		"code": "A",
-		"expected": "分节"
-	}]
-}
